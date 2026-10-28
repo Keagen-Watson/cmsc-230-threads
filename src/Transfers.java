@@ -2,26 +2,24 @@
 public class Transfers {
     // moves amount from one account to the other, holding both locks
     static void transfer(Account from, Account to, int amount) {
-        int first = from.getName().compareTo(to.getName());
-        if (first > 0) {
-            if (first > 0) {
-                synchronized (to) {
-                    synchronized (from) {
-                        from.add(-amount);
-                        to.add(amount);
-                    }
-                }
-            }
-        } else {
-            if (first < 0) {
-                synchronized (from) {
-                    synchronized (to) {
-                        from.add(-amount);
-                        to.add(amount);
-                    }
-                }
+        Account[] accounts = firstAccount(from, to);
+        synchronized (accounts[0]) {
+            synchronized (accounts[1]) {
+                from.add(-amount);
+                to.add(amount);
             }
         }
+    }
+
+    static void transfer(Account a1, Account a2, Account a3, int amount) {
+
+    }
+
+    private static Account[] firstAccount(Account a1, Account a2) {
+        if (a1.getName().compareTo(a2.getName()) > 0) {
+            return new Account[]{a2, a1};
+        }
+        return new Account[]{a1, a2};
     }
 
     public static void main(String[] args) throws InterruptedException {
