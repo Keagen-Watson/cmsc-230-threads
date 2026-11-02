@@ -16,7 +16,12 @@ public class Account {
         return balance;
     }
 
-    public void add(int amount) {
-        balance = balance + amount;
+    public void add(int amount) {balance = balance + amount;}
+
+    // Fixes what the 2 synchronized methods couldn't since this method is synchronized. Both
+    // threads have to call the takeIfEnough() method separately so neither thread will ever
+    // change an account that doesn't have enough money
+    public synchronized boolean takeIfEnough(int amount) {
+        return balance >= amount;
     }
 }
