@@ -5,7 +5,7 @@ public class Tallies {
         // Takes mine's lock
         Thread first = new Thread(() -> {
             for (int i = 0; i < 100_000; i++) {
-                mine.add();
+                mine.add(mine);
             }
         });
         // Takes yours's lock
