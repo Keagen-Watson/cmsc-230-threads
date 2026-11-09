@@ -27,7 +27,7 @@ public class CountServer {
                 if (line.equals("COUNT")) {
                     out.println(count);
                 } else {
-                    count++;
+                    add();
                 }
             }
         } catch (IOException e) {
@@ -36,6 +36,6 @@ public class CountServer {
     }
 
     static synchronized void add() {
-
+        count++;
     }
 }
